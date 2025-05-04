@@ -3,7 +3,6 @@
 import fs from 'fs'
 import path from 'path'
 
-
 // get project name
 const projectName = process.argv[2]
 if (!projectName) {
@@ -59,8 +58,7 @@ const packageJson = {
 }
 const packageJsonPath = path.resolve(projectDir, 'package.json')
 const packageJsonFile = JSON.stringify(packageJson, null, 2)
-fs.writeFileSync(packageJsonPath, packageJsonFile);
-
+fs.writeFileSync(packageJsonPath, packageJsonFile)
 
 // create empty src/index.ts
 fs.mkdirSync(path.resolve(projectDir, 'src'))
