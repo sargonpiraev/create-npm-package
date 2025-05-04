@@ -1,6 +1,6 @@
 # Npm Package Template
 
-# Features
+## Features
 
 - Typescript (https://www.typescriptlang.org/)
 - Prettier (https://prettier.io/)
@@ -11,11 +11,10 @@
 - Commitlint (https://commitlint.js.org/)
 - Jest (https://jestjs.io/)
 
-# Getting started
+## Getting started
 
-`npx create-npm-package my-project`
+`npx @sargonpiraev/create-npm-package my-project`
 
-
-# Inspired by:
+## Inspired by:
 
 - https://www.petermekhaeil.com/how-to-build-an-npx-starter-template/

@@ -7,19 +7,19 @@ stages:
   - release
 
 variables:
-  NODE_OPTIONS: "--max-old-space-size=4096"  # 4GB RAM limit
+  NODE_OPTIONS: '--max-old-space-size=4096' # 4GB RAM limit
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   policy: pull
-  paths: [ .npm ]
+  paths: [.npm]
 
 install:
   stage: install
   script:
     - npm ci --prefer-offline --cache .npm --no-audit --progress=false
   artifacts:
-    paths: [ node_modules ]
+    paths: [node_modules]
     expire_in: 1 day
   cache:
     policy: pull-push
@@ -27,10 +27,10 @@ install:
 test_unit:
   stage: test
   script:
-    - npm run test:unit
+    - npm run test
   coverage: /All files[^|]*|[^|]*\s+([\d\.]+)/
   artifacts:
-    paths: [ coverage ]
+    paths: [coverage]
     expire_in: 1 day
     reports:
       coverage_report:
@@ -52,7 +52,7 @@ test_build:
 test_type:
   stage: test
   script:
-    - npm run test:type
+    - npm run typecheck
 
 test_lint:
   stage: test
@@ -63,22 +63,20 @@ test_vulnerabilities:
   stage: test
   script:
     - npm audit
-    
 
 build:
   stage: build
   script:
     - npm run build
   artifacts:
-    paths: [ dist ]
-    expire_in: 1 day 
+    paths: [dist]
+    expire_in: 1 day
 
 release:
   image: node:22
   stage: release
-  dependencies: [ install, build ]
+  dependencies: [install, build]
   script:
     - npx semantic-release
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-

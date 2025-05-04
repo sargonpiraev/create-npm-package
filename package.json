@@ -10,7 +10,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "typecheck": "tsc --noEmit",
+    "audit": "npm audit"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
+    "prettier": "^3.5.3",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
