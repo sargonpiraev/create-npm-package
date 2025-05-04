@@ -47,20 +47,21 @@ for (const file of files) {
 }
 
 // create package.json
-const thisPackagePath = path.resolve(__dirname, '..', 'package.json')
-const thisPackageFile = fs.readFileSync(thisPackagePath, 'utf8')
-const thisPackageJson = JSON.parse(thisPackageFile)
+const thisPackageJsonPath = path.resolve(__dirname, '..', 'package.json')
+const thisPackageJsonFile = fs.readFileSync(thisPackageJsonPath, 'utf8')
+const thisPackageJson = JSON.parse(thisPackageJsonFile)
+const { scripts, devDependencies, main, publishConfig, types, type } = thisPackageJson
 const packageJson = {
   name: projectName,
   version: '0.0.1',
   description: '',
-  main: './build/index.js',
+  type,
+  scripts,
+  devDependencies,
+  publishConfig,
+  types,
+  main,
   files: ['build'],
-  scripts: thisPackageJson.scripts,
-  devDependencies: thisPackageJson.devDependencies,
-  dependencies: {},
-  publishConfig: { access: 'public' },
-  types: './build/index.d.ts',
 }
 const packageJsonPath = path.resolve(projectDir, 'package.json')
 const packageJsonFile = JSON.stringify(packageJson, null, 2)
