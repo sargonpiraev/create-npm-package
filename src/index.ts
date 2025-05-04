@@ -55,6 +55,7 @@ const packageJson = {
   scripts: thisPackageJson.scripts,
   devDependencies: thisPackageJson.devDependencies,
   dependencies: {},
+  publishConfig: { access: 'public' },
 }
 const packageJsonPath = path.resolve(projectDir, 'package.json')
 const packageJsonFile = JSON.stringify(packageJson, null, 2)
