@@ -69,7 +69,7 @@ build:
   script:
     - npm run build
   artifacts:
-    paths: [dist]
+    paths: [build]
     expire_in: 1 day
 
 release:
