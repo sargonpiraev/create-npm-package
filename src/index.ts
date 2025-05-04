@@ -20,20 +20,20 @@ fs.mkdirSync(projectDir, { recursive: true })
 
 // copy files
 const files = [
-  './../.husky/pre-commit',
-  './../.husky/commit-msg',
-  './../.editorconfig',
-  './../.gitignore',
-  './../.gitlab-ci.yml',
-  './../.npmrc.example',
-  './../.prettierrc.json',
-  './../.releaserc.json',
-  './../.commitlint.config.ts',
-  './../eslint.config.ts',
-  './../jest.config.ts',
+  '.husky/pre-commit',
+  '.husky/commit-msg',
+  '.editorconfig',
+  '.gitignore',
+  '.gitlab-ci.yml',
+  '.npmrc.example',
+  '.prettierrc.json',
+  '.releaserc.json',
+  'commitlint.config.ts',
+  'eslint.config.ts',
+  'jest.config.ts',
 ]
 for (const file of files) {
-  const src = path.resolve(__dirname, file)
+  const src = path.resolve(__dirname, '..', file)
   const dest = path.resolve(projectDir, file)
   fs.mkdirSync(path.dirname(dest), { recursive: true })
   if (fs.existsSync(dest)) {
@@ -44,7 +44,8 @@ for (const file of files) {
 }
 
 // create package.json
-const thisPackageFile = fs.readFileSync('./package.json', 'utf8')
+const thisPackagePath = path.resolve(__dirname, '..', 'package.json')
+const thisPackageFile = fs.readFileSync(thisPackagePath, 'utf8')
 const thisPackageJson = JSON.parse(thisPackageFile)
 const packageJson = {
   name: projectName,
