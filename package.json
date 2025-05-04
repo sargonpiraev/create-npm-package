@@ -14,7 +14,8 @@
     "eslint.config.ts",
     "jest.config.ts",
     "tsconfig.json",
-    ".husky"
+    ".husky/commit-msg",
+    ".husky/pre-commit"
   ],
   "scripts": {
     "test": "jest --passWithNoTests --coverage",
@@ -40,7 +41,7 @@
   "homepage": "https://gitlab.com/sargonpiraev/create-npm-package#readme",
   "description": "",
   "bin": {
-    "create-npm-package": "./build/index.js"
+    "create-npm-package": "build/index.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -60,5 +61,8 @@
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

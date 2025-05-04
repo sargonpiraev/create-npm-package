@@ -48,7 +48,7 @@ const thisPackageFile = fs.readFileSync('./package.json', 'utf8')
 const thisPackageJson = JSON.parse(thisPackageFile)
 const packageJson = {
   name: projectName,
-  version: thisPackageJson.version,
+  version: '0.0.1',
   description: '',
   main: './build/index.js',
   files: ['build'],
