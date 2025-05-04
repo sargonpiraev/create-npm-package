@@ -12,11 +12,12 @@ if (!projectName) {
 
 // create project directory
 const projectDir = path.resolve(process.cwd(), projectName)
-if (fs.existsSync(projectDir)) {
-  console.error(`Error: Directory '${projectName}' already exists.`)
-  process.exit(1)
+const isProjectDirExists = fs.existsSync(projectDir)
+if (isProjectDirExists) {
+  console.warn(`Warning: Directory '${projectName}' already exists.`)
+} else {
+  fs.mkdirSync(projectDir, { recursive: true })
 }
-fs.mkdirSync(projectDir, { recursive: true })
 
 // copy files
 const files = [
@@ -31,16 +32,18 @@ const files = [
   'commitlint.config.ts',
   'eslint.config.ts',
   'jest.config.ts',
+  'tsconfig.json',
 ]
 for (const file of files) {
   const src = path.resolve(__dirname, '..', file)
   const dest = path.resolve(projectDir, file)
   fs.mkdirSync(path.dirname(dest), { recursive: true })
-  if (fs.existsSync(dest)) {
-    console.error(`Error: File '${file}' already exists in the destination.`)
-    process.exit(1)
+  const isDestFileExists = fs.existsSync(dest)
+  if (isDestFileExists) {
+    console.warn(`Warning: File '${file}' already exists in the destination.`)
+  } else {
+    fs.copyFileSync(src, dest)
   }
-  fs.copyFileSync(src, dest)
 }
 
 // create package.json
@@ -63,7 +66,19 @@ const packageJsonFile = JSON.stringify(packageJson, null, 2)
 fs.writeFileSync(packageJsonPath, packageJsonFile)
 
 // create empty src/index.ts
-fs.mkdirSync(path.resolve(projectDir, 'src'))
-fs.writeFileSync(path.resolve(projectDir, 'src/index.ts'), '')
+const srcDir = path.resolve(projectDir, 'src')
+const isSrcDirExists = fs.existsSync(srcDir)
+if (isSrcDirExists) {
+  console.warn(`Warning: Directory 'src' already exists in the destination.`)
+} else {
+  fs.mkdirSync(srcDir)
+}
+const srcIndexPath = path.resolve(srcDir, 'index.ts')
+const isSrcIndexExists = fs.existsSync(srcIndexPath)
+if (isSrcIndexExists) {
+  console.warn(`Warning: File 'index.ts' already exists in the destination.`)
+} else {
+  fs.writeFileSync(srcIndexPath, '')
+}
 
 console.log(`Success! Created '${projectName}' at ${projectDir}`)
