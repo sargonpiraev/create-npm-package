@@ -60,6 +60,7 @@ const packageJson = {
   devDependencies: thisPackageJson.devDependencies,
   dependencies: {},
   publishConfig: { access: 'public' },
+  types: './build/index.d.ts',
 }
 const packageJsonPath = path.resolve(projectDir, 'package.json')
 const packageJsonFile = JSON.stringify(packageJson, null, 2)
