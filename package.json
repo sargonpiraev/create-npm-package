@@ -2,11 +2,25 @@
   "name": "@sargonpiraev/create-npm-package",
   "version": "1.0.0",
   "main": "index.js",
+  "files": [
+    "build",
+    ".editorconfig",
+    ".gitignore",
+    ".gitlab-ci.yml",
+    ".npmrc.example",
+    ".prettierrc.json",
+    ".releaserc.json",
+    "commitlint.config.ts",
+    "eslint.config.ts",
+    "jest.config.ts",
+    "tsconfig.json",
+    ".husky"
+  ],
   "scripts": {
     "test": "jest --passWithNoTests --coverage",
     "dev": "tsx watch ./src/index.ts",
-    "build": "tsc --outDir ./build ./src/index.ts",
-    "lint": "eslint . --ext .ts",
+    "build": "tsc",
+    "lint": "eslint ./src --ext .ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
@@ -18,8 +32,8 @@
     "type": "git",
     "url": "git+https://gitlab.com/sargonpiraev/create-npm-package.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sargon Piraev <sargonpiraev@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://gitlab.com/sargonpiraev/create-npm-package/issues"
   },
@@ -32,7 +46,6 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.26.0",
-    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.3",
     "eslint": "^9.26.0",
     "globals": "^16.0.0",

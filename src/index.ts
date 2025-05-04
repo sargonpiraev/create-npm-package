@@ -3,56 +3,67 @@
 import fs from 'fs'
 import path from 'path'
 
-// Get the project name from the command line arguments
-const projectName = process.argv[2]
 
+// get project name
+const projectName = process.argv[2]
 if (!projectName) {
   console.error('Error: Please specify a project name.')
   process.exit(1)
 }
 
-const currentDir = process.cwd()
-const projectDir = path.resolve(currentDir, projectName)
-
+// create project directory
+const projectDir = path.resolve(process.cwd(), projectName)
 if (fs.existsSync(projectDir)) {
   console.error(`Error: Directory '${projectName}' already exists.`)
   process.exit(1)
 }
+fs.mkdirSync(projectDir, { recursive: true })
 
-const filesToCopy = [
-  '.editorconfig',
-  '.gitignore',
-  '.gitlab-ci.yml',
-  '.npmrc.example',
-  '.prettierrc.json',
-  '.releaserc.json',
-  'commitlint.config.js',
-  'eslint.config.mjs',
-  'jest.config.ts',
+// copy files
+const files = [
+  './../.husky/pre-commit',
+  './../.husky/commit-msg',
+  './../.editorconfig',
+  './../.gitignore',
+  './../.gitlab-ci.yml',
+  './../.npmrc.example',
+  './../.prettierrc.json',
+  './../.releaserc.json',
+  './../.commitlint.config.ts',
+  './../eslint.config.ts',
+  './../jest.config.ts',
 ]
-
-try {
-  // Ensure the project directory exists
-  fs.mkdirSync(projectDir, { recursive: true })
-
-  for (const file of filesToCopy) {
-    const srcPath = path.resolve(__dirname, file)
-    const destPath = path.resolve(projectDir, file)
-
-    // Ensure the destination directory exists
-    const destDir = path.dirname(destPath)
-    fs.mkdirSync(destDir, { recursive: true })
-
-    // Copy the file
-    if (!fs.existsSync(destPath)) {
-      fs.copyFileSync(srcPath, destPath)
-    } else {
-      console.error(`Error: File '${file}' already exists in the destination.`)
-      process.exit(1)
-    }
+for (const file of files) {
+  const src = path.resolve(__dirname, file)
+  const dest = path.resolve(projectDir, file)
+  fs.mkdirSync(path.dirname(dest), { recursive: true })
+  if (fs.existsSync(dest)) {
+    console.error(`Error: File '${file}' already exists in the destination.`)
+    process.exit(1)
   }
-  console.log(`Success! Created '${projectName}' at ${projectDir}`)
-} catch (err) {
-  console.error('Error copying template:', err)
-  process.exit(1)
+  fs.copyFileSync(src, dest)
 }
+
+// create package.json
+const thisPackageFile = fs.readFileSync('./package.json', 'utf8')
+const thisPackageJson = JSON.parse(thisPackageFile)
+const packageJson = {
+  name: projectName,
+  version: thisPackageJson.version,
+  description: '',
+  main: './build/index.js',
+  files: ['build'],
+  scripts: thisPackageJson.scripts,
+  devDependencies: thisPackageJson.devDependencies,
+  dependencies: {},
+}
+const packageJsonPath = path.resolve(projectDir, 'package.json')
+const packageJsonFile = JSON.stringify(packageJson, null, 2)
+fs.writeFileSync(packageJsonPath, packageJsonFile);
+
+
+// create empty src/index.ts
+fs.mkdirSync(path.resolve(projectDir, 'src'))
+fs.writeFileSync(path.resolve(projectDir, 'src/index.ts'), '')
+
+console.log(`Success! Created '${projectName}' at ${projectDir}`)
