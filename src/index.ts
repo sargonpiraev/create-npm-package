@@ -3,6 +3,12 @@
 import fs from 'fs'
 import path from 'path'
 
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 // get project name
 const projectName = process.argv[2]
 if (!projectName) {
