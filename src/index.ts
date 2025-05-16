@@ -52,6 +52,12 @@ for (const file of files) {
   }
 }
 
+// https://github.com/npm/npm/issues/3763#issuecomment-222066809
+// copy .npmignore to .gitignore
+const npmignore = path.resolve(__dirname, '..', '.npmignore')
+const gitignore = path.resolve(projectDir, '.gitignore')
+fs.copyFileSync(npmignore, gitignore)
+
 // create package.json
 const thisPackageJsonPath = path.resolve(__dirname, '..', 'package.json')
 const thisPackageJsonFile = fs.readFileSync(thisPackageJsonPath, 'utf8')
