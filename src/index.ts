@@ -30,7 +30,6 @@ const files = [
   '.husky/pre-commit',
   '.husky/commit-msg',
   '.editorconfig',
-  '.gitignore',
   '.gitlab-ci.yml',
   '.npmrc.example',
   '.prettierrc.json',
