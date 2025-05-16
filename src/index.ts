@@ -53,6 +53,7 @@ for (const file of files) {
 
 // https://github.com/npm/npm/issues/3763#issuecomment-222066809
 // copy .npmignore to .gitignore
+// npm for some reason renames gitignre to npmignore during pulling
 const npmignore = path.resolve(__dirname, '..', '.npmignore')
 const gitignore = path.resolve(projectDir, '.gitignore')
 fs.copyFileSync(npmignore, gitignore)
