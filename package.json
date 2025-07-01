@@ -30,7 +30,7 @@
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "typecheck": "tsc --noEmit",
-    "audit": "npm audit"
+    "audit": "npm audit --omit=dev"
   },
   "repository": {
     "type": "git",
