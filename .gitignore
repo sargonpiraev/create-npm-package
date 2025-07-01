@@ -3,3 +3,13 @@ build
 coverage
 junit.xml
 .DS_Store
+
+# Generated files
+src/generated/
+
+# OpenAPI generation errors
+openapi-ts-error-*.log
+
+# Environment files
+.env
+.env.local
