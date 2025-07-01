@@ -12,14 +12,7 @@ export default [
     },
   },
   {
-    ignores: [
-      'build/',
-      'coverage/',
-      'node_modules/',
-      '.DS_Store',
-      'src/generated/',
-      'openapi-ts-error-*.log',
-    ],
+    ignores: ['build/', 'coverage/', 'node_modules/', '.DS_Store', 'src/generated/', 'openapi-ts-error-*.log'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
